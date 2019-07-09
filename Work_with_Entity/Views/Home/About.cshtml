@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Work_with_Entity.ViewModel.EnrollmentDateGroup>
+@{
+    ViewBag.Title = "статистика зарегистрированных студентов";
+}
+
+
+<h2>Student Body Statistics</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Дата регистации
+        </th>
+        <th>
+            Студенты
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @String.Format("{0:d}", item.EnrollmentDate)
+            </td>
+            <td>
+                @item.StudentCount
+            </td>
+        </tr>
+    }
+</table>
+

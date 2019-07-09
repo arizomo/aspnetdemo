@@ -1,0 +1,100 @@
+﻿@model  PagedList.IPagedList<Work_with_Entity.Models.Student>
+
+
+
+@{
+    ViewBag.Title = "Студенты";
+}
+
+<h2>Студенты</h2>
+
+<p>@Html.ActionLink("Добавить","Create",null, new { @class = "btn btn-primary " })</p>
+@using (Html.BeginForm())
+{
+    <p>
+        Поиск:@Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>@Html.ActionLink("Фамилия", "Index", new { SortOrder = ViewBag.NameSortParm })</th>
+        <th>Имя</th>
+        <th>@Html.ActionLink("Дата регистрации", "Index", new { SortOrder = ViewBag.DateSortParm })</th>
+
+    </tr>
+
+    @foreach(var item in Model )
+    {
+        <tr>
+            <td class="text-left">@Html.ActionLink(item.LastName, "Edit", new {Id=item.StudentID })</td>
+            <td class="text-left">@item.FirstName</td>
+            <td class="text-left">@item.EnrollmentDate</td>
+            <td>
+
+                @Html.ActionLink("описание", "Details", new { id = item.StudentID }, new { @class = "btn btn-primary " }) |
+                @Html.ActionLink("удалить", "Delete", new { id = item.StudentID }, new { @class = "btn btn-primary " })
+                
+            </td>
+        </tr>
+    }
+</table>
+
+@*
+    Утверждение @model показывает, что представление принимает на вход объект типа PagedList
+     вместо объекта типа List.
+
+    Текстовая строка инициализируется текущей строкой поиска
+     чтобы пользователь мог переходить со страницы на страницу
+     не теряя строку поиска:
+
+    Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string) 
+
+    Ссылки в заголовках столбцов используют строку запроса для передачи текущей строки
+     поиска в контроллер, чтобы пользователь мог сортировать возвращённые механизмом
+     фильтра результаты:
+
+    @Html.ActionLink("Last Name", "Index", new { sortOrder=ViewBag.NameSortParm,
+     currentFilter=ViewBag.CurrentFilter })
+
+    В «подвале» страницы находится запись, демонстрирующая номер страницы и ссылки
+     навигации:
+
+
+*@
+
+<div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    of @Model.PageCount
+    &nbsp;
+    @if (Model.HasPreviousPage)
+    {
+        @Html.ActionLink("<<", "Index", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+        @Html.Raw("&nbsp;");
+        @Html.ActionLink("< Prev", "Index", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+    }
+    else
+    {
+        @:<<
+        @Html.Raw("&nbsp;");
+        @:< Prev
+    }
+    &nbsp;
+    @if (Model.HasNextPage)
+    {
+        @Html.ActionLink("Next >", "Index", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+        @Html.Raw("&nbsp;");
+        @Html.ActionLink(">>", "Index", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+    }
+    else
+    {
+        @:Next >
+        @Html.Raw("&nbsp;")
+        @:>>
+    }
+</div>
+
+
+
+
+

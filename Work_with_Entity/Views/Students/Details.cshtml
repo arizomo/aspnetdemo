@@ -1,0 +1,73 @@
+﻿@model Work_with_Entity.Models.Student
+
+@{
+    ViewBag.Title = "Студенты";
+}
+
+@*
+    Этот код проходит циклом через сущности в Enrollments
+     navigation property. Для каждой сущности Enrollment он отображает название курса 
+    и grade. Название курса берётся из сущности Course , содержащейся в свойстве Course
+     navigation property сущности Enrollments. Все эти данные автоматически выгружаются
+     из базы данных по мере необходимости (иными словами, используется ленивая загрузка. Вы не указали eager loading для свойства Courses navigation property, поэтому при первом обращении к этому свойству, будет выполнен запрос к базе для получения данных
+
+*@
+
+<h2>Описание:</h2>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+    </dl>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.Enrollments)
+    </div> 
+   
+           
+                <table class="table">
+                    <tr>
+                        <th class="text-left">Курсы</th>
+                        <th class="text-left">Уровень</th>
+
+                    </tr>
+                    @foreach (var item in Model.Enrollments)
+                    {
+                        <tr>
+                            <td class="text-left">
+                                @Html.DisplayFor(modelItem => item.Course.Title)
+
+                            </td>
+                            <td class="text-left">
+                                @Html.DisplayFor(modelItem => item.Grade)
+                            </td>
+
+                        </tr>
+                    }
+                </table>
+            </div>
+            
+            
+       
+
+<p>
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model.StudentID },new {@class="btn btn-primary" }) |
+    @Html.ActionLink("Назад", "Index",null, new { @class = "btn btn-primary" })
+</p>

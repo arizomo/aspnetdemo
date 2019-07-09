@@ -1,0 +1,57 @@
+﻿body {
+   background-color:aqua;
+
+}
+
+.main{
+
+    background-color:aqua;
+}
+.TableData{
+
+    background-color:blanchedalmond;
+}
+
+#main  
+{ 
+    clear: both; 
+    padding: 30px 30px 15px 30px; 
+    background-color: #fff; 
+    border-radius: 4px 0 0 0; 
+    -webkit-border-radius: 4px 0 0 0; 
+    -moz-border-radius: 4px 0 0 0; 
+}
+
+nav,  
+#menucontainer { 
+    margin-top: 40px; 
+    clear: both; 
+    float: left; 
+}
+
+.RightAlign{
+
+    padding-left:100px;
+}
+
+.rowheader div{
+
+    height:30px;
+    background: #b200ff;
+    
+}
+
+.marg div{
+    padding-left:10px;
+
+}
+
+container div{
+
+    background: #00ffff;
+}
+
+#color_container{
+
+    background-color:burlywood;
+}
